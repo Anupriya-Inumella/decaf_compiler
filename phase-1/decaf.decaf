@@ -1,0 +1,43 @@
+class Program {
+    int x;
+    int a[10];
+    int a,b,c;
+    boolean c;
+    boolean blah() {
+        c = !c;
+        a = b+c;
+    }
+    void main(int blah) {
+        c = !c;
+        a = b+c;
+        a = a+b+c;
+        c = a-(-b);
+        c = -(a+b);
+        c = -a+b;
+        //c = a--b;
+        //c = a+-b;
+        //c = --a;
+        c = a;
+        c = 1;
+        c = a-1;
+        c = -1;
+        c = -blah();
+        c = blah();
+        c = blah(1);
+        c = blah(x);
+        c = 4-blah(x, y);
+    }
+    int main(int blah) {
+        c = !c;
+        a = b+c;
+    }
+    int integerFunc (int blah) {
+        if (a>10) {}
+        if (a>b) {
+            break;
+        } else {
+            continue;
+        }
+        return 15;
+        }
+}

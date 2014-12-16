@@ -1,0 +1,439 @@
+Terminals unused in grammar
+
+   CONSTANT_CHARACTER
+   CONSTANT_FLOATING
+   CONSTANT_STRING
+   CONSTANT_BOOLEAN
+   IF
+   ELSE
+   FOR
+   BREAK
+   CONTINUE
+   RETURN
+   CALLOUT
+   COMMENT
+   OP_EQUAL
+   OP_NOT
+   OP_ARITHMETIC
+   OP_ARITH_ASSIGN
+   OP_CONDITIONAL
+   OP_TEST
+
+
+State 6 conflicts: 3 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: CLASS PROGRAM OPEN_BRACE FieldDeclList MethodDeclList CLOSED_BRACE
+
+    2 FieldDeclList: %empty
+    3              | FieldDeclList FieldDecl
+
+    4 FieldDecl: FieldType FieldList SEMI_COLON
+
+    5 FieldType: TYPE_INT
+    6          | TYPE_BOOL
+    7          | TYPE_FLOAT
+
+    8 FieldList: FieldList COMMA Field
+    9          | Field
+
+   10 Field: IDENTIFIER
+   11      | IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+   12 MethodDeclList: %empty
+   13               | MethodDeclList MethodDecl
+
+   14 MethodDecl: MethodType IDENTIFIER OPEN_PARANTHESIS ParamList CLOSED_PARANTHESIS Block
+
+   15 MethodType: FieldType
+   16           | VOID
+
+   17 ParamList: ParamList COMMA Param
+   18          | Param
+
+   19 Param: FieldType IDENTIFIER
+
+   20 Block: %empty
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TYPE_INT (258) 5
+TYPE_BOOL (259) 6
+TYPE_FLOAT (260) 7
+VOID (261) 16
+CONSTANT_INTEGER (262) 11
+CONSTANT_CHARACTER (263)
+CONSTANT_FLOATING (264)
+CONSTANT_STRING (265)
+CONSTANT_BOOLEAN (266)
+IDENTIFIER (267) 10 11 14 19
+OPEN_BRACE (268) 1
+CLOSED_BRACE (269) 1
+OPEN_SQR_BRACKET (270) 11
+CLOSED_SQR_BRACKET (271) 11
+OPEN_PARANTHESIS (272) 14
+CLOSED_PARANTHESIS (273) 14
+IF (274)
+ELSE (275)
+FOR (276)
+BREAK (277)
+CONTINUE (278)
+RETURN (279)
+CLASS (280) 1
+PROGRAM (281) 1
+SEMI_COLON (282) 4
+COMMA (283) 8 17
+CALLOUT (284)
+COMMENT (285)
+OP_EQUAL (286)
+OP_NOT (287)
+OP_ARITHMETIC (288)
+OP_ARITH_ASSIGN (289)
+OP_CONDITIONAL (290)
+OP_TEST (291)
+
+
+Nonterminals, with rules where they appear
+
+$accept (37)
+    on left: 0
+Program (38)
+    on left: 1, on right: 0
+FieldDeclList (39)
+    on left: 2 3, on right: 1 3
+FieldDecl (40)
+    on left: 4, on right: 3
+FieldType (41)
+    on left: 5 6 7, on right: 4 15 19
+FieldList (42)
+    on left: 8 9, on right: 4 8
+Field (43)
+    on left: 10 11, on right: 8 9
+MethodDeclList (44)
+    on left: 12 13, on right: 1 13
+MethodDecl (45)
+    on left: 14, on right: 13
+MethodType (46)
+    on left: 15 16, on right: 14
+ParamList (47)
+    on left: 17 18, on right: 14 17
+Param (48)
+    on left: 19, on right: 17 18
+Block (49)
+    on left: 20, on right: 14
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    CLASS  shift, and go to state 1
+
+    Program  go to state 2
+
+
+State 1
+
+    1 Program: CLASS . PROGRAM OPEN_BRACE FieldDeclList MethodDeclList CLOSED_BRACE
+
+    PROGRAM  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 Program: CLASS PROGRAM . OPEN_BRACE FieldDeclList MethodDeclList CLOSED_BRACE
+
+    OPEN_BRACE  shift, and go to state 5
+
+
+State 4
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 5
+
+    1 Program: CLASS PROGRAM OPEN_BRACE . FieldDeclList MethodDeclList CLOSED_BRACE
+
+    $default  reduce using rule 2 (FieldDeclList)
+
+    FieldDeclList  go to state 6
+
+
+State 6
+
+    1 Program: CLASS PROGRAM OPEN_BRACE FieldDeclList . MethodDeclList CLOSED_BRACE
+    3 FieldDeclList: FieldDeclList . FieldDecl
+
+    TYPE_INT    shift, and go to state 7
+    TYPE_BOOL   shift, and go to state 8
+    TYPE_FLOAT  shift, and go to state 9
+
+    TYPE_INT    [reduce using rule 12 (MethodDeclList)]
+    TYPE_BOOL   [reduce using rule 12 (MethodDeclList)]
+    TYPE_FLOAT  [reduce using rule 12 (MethodDeclList)]
+    $default    reduce using rule 12 (MethodDeclList)
+
+    FieldDecl       go to state 10
+    FieldType       go to state 11
+    MethodDeclList  go to state 12
+
+
+State 7
+
+    5 FieldType: TYPE_INT .
+
+    $default  reduce using rule 5 (FieldType)
+
+
+State 8
+
+    6 FieldType: TYPE_BOOL .
+
+    $default  reduce using rule 6 (FieldType)
+
+
+State 9
+
+    7 FieldType: TYPE_FLOAT .
+
+    $default  reduce using rule 7 (FieldType)
+
+
+State 10
+
+    3 FieldDeclList: FieldDeclList FieldDecl .
+
+    $default  reduce using rule 3 (FieldDeclList)
+
+
+State 11
+
+    4 FieldDecl: FieldType . FieldList SEMI_COLON
+
+    IDENTIFIER  shift, and go to state 13
+
+    FieldList  go to state 14
+    Field      go to state 15
+
+
+State 12
+
+    1 Program: CLASS PROGRAM OPEN_BRACE FieldDeclList MethodDeclList . CLOSED_BRACE
+   13 MethodDeclList: MethodDeclList . MethodDecl
+
+    TYPE_INT      shift, and go to state 7
+    TYPE_BOOL     shift, and go to state 8
+    TYPE_FLOAT    shift, and go to state 9
+    VOID          shift, and go to state 16
+    CLOSED_BRACE  shift, and go to state 17
+
+    FieldType   go to state 18
+    MethodDecl  go to state 19
+    MethodType  go to state 20
+
+
+State 13
+
+   10 Field: IDENTIFIER .
+   11      | IDENTIFIER . OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+    OPEN_SQR_BRACKET  shift, and go to state 21
+
+    $default  reduce using rule 10 (Field)
+
+
+State 14
+
+    4 FieldDecl: FieldType FieldList . SEMI_COLON
+    8 FieldList: FieldList . COMMA Field
+
+    SEMI_COLON  shift, and go to state 22
+    COMMA       shift, and go to state 23
+
+
+State 15
+
+    9 FieldList: Field .
+
+    $default  reduce using rule 9 (FieldList)
+
+
+State 16
+
+   16 MethodType: VOID .
+
+    $default  reduce using rule 16 (MethodType)
+
+
+State 17
+
+    1 Program: CLASS PROGRAM OPEN_BRACE FieldDeclList MethodDeclList CLOSED_BRACE .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 18
+
+   15 MethodType: FieldType .
+
+    $default  reduce using rule 15 (MethodType)
+
+
+State 19
+
+   13 MethodDeclList: MethodDeclList MethodDecl .
+
+    $default  reduce using rule 13 (MethodDeclList)
+
+
+State 20
+
+   14 MethodDecl: MethodType . IDENTIFIER OPEN_PARANTHESIS ParamList CLOSED_PARANTHESIS Block
+
+    IDENTIFIER  shift, and go to state 24
+
+
+State 21
+
+   11 Field: IDENTIFIER OPEN_SQR_BRACKET . CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+    CONSTANT_INTEGER  shift, and go to state 25
+
+
+State 22
+
+    4 FieldDecl: FieldType FieldList SEMI_COLON .
+
+    $default  reduce using rule 4 (FieldDecl)
+
+
+State 23
+
+    8 FieldList: FieldList COMMA . Field
+
+    IDENTIFIER  shift, and go to state 13
+
+    Field  go to state 26
+
+
+State 24
+
+   14 MethodDecl: MethodType IDENTIFIER . OPEN_PARANTHESIS ParamList CLOSED_PARANTHESIS Block
+
+    OPEN_PARANTHESIS  shift, and go to state 27
+
+
+State 25
+
+   11 Field: IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER . CLOSED_SQR_BRACKET
+
+    CLOSED_SQR_BRACKET  shift, and go to state 28
+
+
+State 26
+
+    8 FieldList: FieldList COMMA Field .
+
+    $default  reduce using rule 8 (FieldList)
+
+
+State 27
+
+   14 MethodDecl: MethodType IDENTIFIER OPEN_PARANTHESIS . ParamList CLOSED_PARANTHESIS Block
+
+    TYPE_INT    shift, and go to state 7
+    TYPE_BOOL   shift, and go to state 8
+    TYPE_FLOAT  shift, and go to state 9
+
+    FieldType  go to state 29
+    ParamList  go to state 30
+    Param      go to state 31
+
+
+State 28
+
+   11 Field: IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET .
+
+    $default  reduce using rule 11 (Field)
+
+
+State 29
+
+   19 Param: FieldType . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 32
+
+
+State 30
+
+   14 MethodDecl: MethodType IDENTIFIER OPEN_PARANTHESIS ParamList . CLOSED_PARANTHESIS Block
+   17 ParamList: ParamList . COMMA Param
+
+    CLOSED_PARANTHESIS  shift, and go to state 33
+    COMMA               shift, and go to state 34
+
+
+State 31
+
+   18 ParamList: Param .
+
+    $default  reduce using rule 18 (ParamList)
+
+
+State 32
+
+   19 Param: FieldType IDENTIFIER .
+
+    $default  reduce using rule 19 (Param)
+
+
+State 33
+
+   14 MethodDecl: MethodType IDENTIFIER OPEN_PARANTHESIS ParamList CLOSED_PARANTHESIS . Block
+
+    $default  reduce using rule 20 (Block)
+
+    Block  go to state 35
+
+
+State 34
+
+   17 ParamList: ParamList COMMA . Param
+
+    TYPE_INT    shift, and go to state 7
+    TYPE_BOOL   shift, and go to state 8
+    TYPE_FLOAT  shift, and go to state 9
+
+    FieldType  go to state 29
+    Param      go to state 36
+
+
+State 35
+
+   14 MethodDecl: MethodType IDENTIFIER OPEN_PARANTHESIS ParamList CLOSED_PARANTHESIS Block .
+
+    $default  reduce using rule 14 (MethodDecl)
+
+
+State 36
+
+   17 ParamList: ParamList COMMA Param .
+
+    $default  reduce using rule 17 (ParamList)

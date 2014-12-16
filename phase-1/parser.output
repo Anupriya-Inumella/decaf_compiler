@@ -1,0 +1,1324 @@
+State 103 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: CLASS PROGRAM OPEN_BRACE DeclList CLOSED_BRACE
+
+    2 DeclList: /* empty */
+    3         | Decl DeclList
+
+    4 Decl: FieldDecl
+    5     | MethodDecl
+
+    6 FieldDecl: FieldType FieldList SEMI_COLON
+
+    7 FieldType: TYPE_INT
+    8          | TYPE_BOOL
+
+    9 FieldList: Field COMMA FieldList
+   10          | Field
+
+   11 Field: IDENTIFIER
+   12      | IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+   13 MethodDecl: FieldType IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+   14           | VOID IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+
+   15 ParamListThingy: /* empty */
+   16                | ParamList
+
+   17 ParamList: ParamList COMMA FieldType IDENTIFIER
+   18          | FieldType IDENTIFIER
+
+   19 Block: OPEN_BRACE Statements CLOSED_BRACE
+
+   20 Statements: /* empty */
+   21           | Statements Stmnt
+
+   22 Stmnt: Location OP_ARITH_ASSIGN Expr SEMI_COLON
+   23      | Location OP_EQUAL Expr SEMI_COLON
+   24      | MethodCall SEMI_COLON
+   25      | IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block
+   26      | IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block ELSE Block
+   27      | FOR IDENTIFIER OP_EQUAL Expr COMMA Expr Block
+   28      | BREAK SEMI_COLON
+   29      | CONTINUE SEMI_COLON
+   30      | RETURN SEMI_COLON
+   31      | RETURN Expr SEMI_COLON
+   32      | Block
+   33      | FieldDecl
+
+   34 Location: IDENTIFIER
+   35         | IDENTIFIER OPEN_SQR_BRACKET Expr CLOSED_SQR_BRACKET
+
+   36 Expr: ExprBinary
+   37     | OpUnary ExprBinary
+
+   38 ExprBinary: ExprSimple
+   39           | ExprBinary OpBinary ExprBinary
+
+   40 ExprSimple: Location
+   41           | MethodCall
+   42           | Constant
+   43           | OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS
+
+   44 OpBinary: OP_MINUS
+   45         | OP_BINARY
+
+   46 OpUnary: OP_MINUS
+   47        | OP_NOT
+
+   48 Constant: CONSTANT_STRING
+   49         | CONSTANT_INTEGER
+   50         | CONSTANT_BOOLEAN
+   51         | CONSTANT_CHARACTER
+
+   52 ExprListThingy: /* empty */
+   53               | ExprList
+
+   54 ExprList: Expr
+   55         | Expr COMMA ExprList
+
+   56 MethodCall: IDENTIFIER OPEN_PARANTHESIS ExprListThingy CLOSED_PARANTHESIS
+   57           | CALLOUT OPEN_PARANTHESIS CONSTANT_STRING COMMA ExprList CLOSED_PARANTHESIS
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TYPE_INT (258) 7
+TYPE_BOOL (259) 8
+VOID (260) 14
+CONSTANT_INTEGER (261) 12 49
+CONSTANT_CHARACTER (262) 51
+CONSTANT_STRING (263) 48 57
+CONSTANT_BOOLEAN (264) 50
+IDENTIFIER (265) 11 12 13 14 17 18 27 34 35 56
+OPEN_BRACE (266) 1 19
+CLOSED_BRACE (267) 1 19
+OPEN_SQR_BRACKET (268) 12 35
+CLOSED_SQR_BRACKET (269) 12 35
+OPEN_PARANTHESIS (270) 13 14 25 26 43 56 57
+CLOSED_PARANTHESIS (271) 13 14 25 26 43 56 57
+IF (272) 25 26
+ELSE (273) 26
+FOR (274) 27
+BREAK (275) 28
+CONTINUE (276) 29
+RETURN (277) 30 31
+CLASS (278) 1
+PROGRAM (279) 1
+SEMI_COLON (280) 6 22 23 24 28 29 30 31
+COMMA (281) 9 17 27 55 57
+CALLOUT (282) 57
+OP_EQUAL (283) 23 27
+OP_NOT (284) 47
+OP_BINARY (285) 45
+OP_ARITH_ASSIGN (286) 22
+OP_MINUS (287) 44 46
+
+
+Nonterminals, with rules where they appear
+
+$accept (33)
+    on left: 0
+Program (34)
+    on left: 1, on right: 0
+DeclList (35)
+    on left: 2 3, on right: 1 3
+Decl (36)
+    on left: 4 5, on right: 3
+FieldDecl (37)
+    on left: 6, on right: 4 33
+FieldType (38)
+    on left: 7 8, on right: 6 13 17 18
+FieldList (39)
+    on left: 9 10, on right: 6 9
+Field (40)
+    on left: 11 12, on right: 9 10
+MethodDecl (41)
+    on left: 13 14, on right: 5
+ParamListThingy (42)
+    on left: 15 16, on right: 13 14
+ParamList (43)
+    on left: 17 18, on right: 16 17
+Block (44)
+    on left: 19, on right: 13 14 25 26 27 32
+Statements (45)
+    on left: 20 21, on right: 19 21
+Stmnt (46)
+    on left: 22 23 24 25 26 27 28 29 30 31 32 33, on right: 21
+Location (47)
+    on left: 34 35, on right: 22 23 40
+Expr (48)
+    on left: 36 37, on right: 22 23 25 26 27 31 35 43 54 55
+ExprBinary (49)
+    on left: 38 39, on right: 36 37 39
+ExprSimple (50)
+    on left: 40 41 42 43, on right: 38
+OpBinary (51)
+    on left: 44 45, on right: 39
+OpUnary (52)
+    on left: 46 47, on right: 37
+Constant (53)
+    on left: 48 49 50 51, on right: 42
+ExprListThingy (54)
+    on left: 52 53, on right: 56
+ExprList (55)
+    on left: 54 55, on right: 53 55 57
+MethodCall (56)
+    on left: 56 57, on right: 24 41
+
+
+state 0
+
+    0 $accept: . Program $end
+
+    CLASS  shift, and go to state 1
+
+    Program  go to state 2
+
+
+state 1
+
+    1 Program: CLASS . PROGRAM OPEN_BRACE DeclList CLOSED_BRACE
+
+    PROGRAM  shift, and go to state 3
+
+
+state 2
+
+    0 $accept: Program . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    1 Program: CLASS PROGRAM . OPEN_BRACE DeclList CLOSED_BRACE
+
+    OPEN_BRACE  shift, and go to state 5
+
+
+state 4
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+state 5
+
+    1 Program: CLASS PROGRAM OPEN_BRACE . DeclList CLOSED_BRACE
+
+    TYPE_INT   shift, and go to state 6
+    TYPE_BOOL  shift, and go to state 7
+    VOID       shift, and go to state 8
+
+    $default  reduce using rule 2 (DeclList)
+
+    DeclList    go to state 9
+    Decl        go to state 10
+    FieldDecl   go to state 11
+    FieldType   go to state 12
+    MethodDecl  go to state 13
+
+
+state 6
+
+    7 FieldType: TYPE_INT .
+
+    $default  reduce using rule 7 (FieldType)
+
+
+state 7
+
+    8 FieldType: TYPE_BOOL .
+
+    $default  reduce using rule 8 (FieldType)
+
+
+state 8
+
+   14 MethodDecl: VOID . IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+
+    IDENTIFIER  shift, and go to state 14
+
+
+state 9
+
+    1 Program: CLASS PROGRAM OPEN_BRACE DeclList . CLOSED_BRACE
+
+    CLOSED_BRACE  shift, and go to state 15
+
+
+state 10
+
+    3 DeclList: Decl . DeclList
+
+    TYPE_INT   shift, and go to state 6
+    TYPE_BOOL  shift, and go to state 7
+    VOID       shift, and go to state 8
+
+    $default  reduce using rule 2 (DeclList)
+
+    DeclList    go to state 16
+    Decl        go to state 10
+    FieldDecl   go to state 11
+    FieldType   go to state 12
+    MethodDecl  go to state 13
+
+
+state 11
+
+    4 Decl: FieldDecl .
+
+    $default  reduce using rule 4 (Decl)
+
+
+state 12
+
+    6 FieldDecl: FieldType . FieldList SEMI_COLON
+   13 MethodDecl: FieldType . IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+
+    IDENTIFIER  shift, and go to state 17
+
+    FieldList  go to state 18
+    Field      go to state 19
+
+
+state 13
+
+    5 Decl: MethodDecl .
+
+    $default  reduce using rule 5 (Decl)
+
+
+state 14
+
+   14 MethodDecl: VOID IDENTIFIER . OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+
+    OPEN_PARANTHESIS  shift, and go to state 20
+
+
+state 15
+
+    1 Program: CLASS PROGRAM OPEN_BRACE DeclList CLOSED_BRACE .
+
+    $default  reduce using rule 1 (Program)
+
+
+state 16
+
+    3 DeclList: Decl DeclList .
+
+    $default  reduce using rule 3 (DeclList)
+
+
+state 17
+
+   11 Field: IDENTIFIER .
+   12      | IDENTIFIER . OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET
+   13 MethodDecl: FieldType IDENTIFIER . OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block
+
+    OPEN_SQR_BRACKET  shift, and go to state 21
+    OPEN_PARANTHESIS  shift, and go to state 22
+
+    $default  reduce using rule 11 (Field)
+
+
+state 18
+
+    6 FieldDecl: FieldType FieldList . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 23
+
+
+state 19
+
+    9 FieldList: Field . COMMA FieldList
+   10          | Field .
+
+    COMMA  shift, and go to state 24
+
+    $default  reduce using rule 10 (FieldList)
+
+
+state 20
+
+   14 MethodDecl: VOID IDENTIFIER OPEN_PARANTHESIS . ParamListThingy CLOSED_PARANTHESIS Block
+
+    TYPE_INT   shift, and go to state 6
+    TYPE_BOOL  shift, and go to state 7
+
+    $default  reduce using rule 15 (ParamListThingy)
+
+    FieldType        go to state 25
+    ParamListThingy  go to state 26
+    ParamList        go to state 27
+
+
+state 21
+
+   12 Field: IDENTIFIER OPEN_SQR_BRACKET . CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+    CONSTANT_INTEGER  shift, and go to state 28
+
+
+state 22
+
+   13 MethodDecl: FieldType IDENTIFIER OPEN_PARANTHESIS . ParamListThingy CLOSED_PARANTHESIS Block
+
+    TYPE_INT   shift, and go to state 6
+    TYPE_BOOL  shift, and go to state 7
+
+    $default  reduce using rule 15 (ParamListThingy)
+
+    FieldType        go to state 25
+    ParamListThingy  go to state 29
+    ParamList        go to state 27
+
+
+state 23
+
+    6 FieldDecl: FieldType FieldList SEMI_COLON .
+
+    $default  reduce using rule 6 (FieldDecl)
+
+
+state 24
+
+    9 FieldList: Field COMMA . FieldList
+
+    IDENTIFIER  shift, and go to state 30
+
+    FieldList  go to state 31
+    Field      go to state 19
+
+
+state 25
+
+   18 ParamList: FieldType . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 32
+
+
+state 26
+
+   14 MethodDecl: VOID IDENTIFIER OPEN_PARANTHESIS ParamListThingy . CLOSED_PARANTHESIS Block
+
+    CLOSED_PARANTHESIS  shift, and go to state 33
+
+
+state 27
+
+   16 ParamListThingy: ParamList .
+   17 ParamList: ParamList . COMMA FieldType IDENTIFIER
+
+    COMMA  shift, and go to state 34
+
+    $default  reduce using rule 16 (ParamListThingy)
+
+
+state 28
+
+   12 Field: IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER . CLOSED_SQR_BRACKET
+
+    CLOSED_SQR_BRACKET  shift, and go to state 35
+
+
+state 29
+
+   13 MethodDecl: FieldType IDENTIFIER OPEN_PARANTHESIS ParamListThingy . CLOSED_PARANTHESIS Block
+
+    CLOSED_PARANTHESIS  shift, and go to state 36
+
+
+state 30
+
+   11 Field: IDENTIFIER .
+   12      | IDENTIFIER . OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET
+
+    OPEN_SQR_BRACKET  shift, and go to state 21
+
+    $default  reduce using rule 11 (Field)
+
+
+state 31
+
+    9 FieldList: Field COMMA FieldList .
+
+    $default  reduce using rule 9 (FieldList)
+
+
+state 32
+
+   18 ParamList: FieldType IDENTIFIER .
+
+    $default  reduce using rule 18 (ParamList)
+
+
+state 33
+
+   14 MethodDecl: VOID IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS . Block
+
+    OPEN_BRACE  shift, and go to state 37
+
+    Block  go to state 38
+
+
+state 34
+
+   17 ParamList: ParamList COMMA . FieldType IDENTIFIER
+
+    TYPE_INT   shift, and go to state 6
+    TYPE_BOOL  shift, and go to state 7
+
+    FieldType  go to state 39
+
+
+state 35
+
+   12 Field: IDENTIFIER OPEN_SQR_BRACKET CONSTANT_INTEGER CLOSED_SQR_BRACKET .
+
+    $default  reduce using rule 12 (Field)
+
+
+state 36
+
+   13 MethodDecl: FieldType IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS . Block
+
+    OPEN_BRACE  shift, and go to state 37
+
+    Block  go to state 40
+
+
+state 37
+
+   19 Block: OPEN_BRACE . Statements CLOSED_BRACE
+
+    $default  reduce using rule 20 (Statements)
+
+    Statements  go to state 41
+
+
+state 38
+
+   14 MethodDecl: VOID IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block .
+
+    $default  reduce using rule 14 (MethodDecl)
+
+
+state 39
+
+   17 ParamList: ParamList COMMA FieldType . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 42
+
+
+state 40
+
+   13 MethodDecl: FieldType IDENTIFIER OPEN_PARANTHESIS ParamListThingy CLOSED_PARANTHESIS Block .
+
+    $default  reduce using rule 13 (MethodDecl)
+
+
+state 41
+
+   19 Block: OPEN_BRACE Statements . CLOSED_BRACE
+   21 Statements: Statements . Stmnt
+
+    TYPE_INT      shift, and go to state 6
+    TYPE_BOOL     shift, and go to state 7
+    IDENTIFIER    shift, and go to state 43
+    OPEN_BRACE    shift, and go to state 37
+    CLOSED_BRACE  shift, and go to state 44
+    IF            shift, and go to state 45
+    FOR           shift, and go to state 46
+    BREAK         shift, and go to state 47
+    CONTINUE      shift, and go to state 48
+    RETURN        shift, and go to state 49
+    CALLOUT       shift, and go to state 50
+
+    FieldDecl   go to state 51
+    FieldType   go to state 52
+    Block       go to state 53
+    Stmnt       go to state 54
+    Location    go to state 55
+    MethodCall  go to state 56
+
+
+state 42
+
+   17 ParamList: ParamList COMMA FieldType IDENTIFIER .
+
+    $default  reduce using rule 17 (ParamList)
+
+
+state 43
+
+   34 Location: IDENTIFIER .
+   35         | IDENTIFIER . OPEN_SQR_BRACKET Expr CLOSED_SQR_BRACKET
+   56 MethodCall: IDENTIFIER . OPEN_PARANTHESIS ExprListThingy CLOSED_PARANTHESIS
+
+    OPEN_SQR_BRACKET  shift, and go to state 57
+    OPEN_PARANTHESIS  shift, and go to state 58
+
+    $default  reduce using rule 34 (Location)
+
+
+state 44
+
+   19 Block: OPEN_BRACE Statements CLOSED_BRACE .
+
+    $default  reduce using rule 19 (Block)
+
+
+state 45
+
+   25 Stmnt: IF . OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block
+   26      | IF . OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block ELSE Block
+
+    OPEN_PARANTHESIS  shift, and go to state 59
+
+
+state 46
+
+   27 Stmnt: FOR . IDENTIFIER OP_EQUAL Expr COMMA Expr Block
+
+    IDENTIFIER  shift, and go to state 60
+
+
+state 47
+
+   28 Stmnt: BREAK . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 61
+
+
+state 48
+
+   29 Stmnt: CONTINUE . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 62
+
+
+state 49
+
+   30 Stmnt: RETURN . SEMI_COLON
+   31      | RETURN . Expr SEMI_COLON
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    SEMI_COLON          shift, and go to state 68
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 72
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 50
+
+   57 MethodCall: CALLOUT . OPEN_PARANTHESIS CONSTANT_STRING COMMA ExprList CLOSED_PARANTHESIS
+
+    OPEN_PARANTHESIS  shift, and go to state 78
+
+
+state 51
+
+   33 Stmnt: FieldDecl .
+
+    $default  reduce using rule 33 (Stmnt)
+
+
+state 52
+
+    6 FieldDecl: FieldType . FieldList SEMI_COLON
+
+    IDENTIFIER  shift, and go to state 30
+
+    FieldList  go to state 18
+    Field      go to state 19
+
+
+state 53
+
+   32 Stmnt: Block .
+
+    $default  reduce using rule 32 (Stmnt)
+
+
+state 54
+
+   21 Statements: Statements Stmnt .
+
+    $default  reduce using rule 21 (Statements)
+
+
+state 55
+
+   22 Stmnt: Location . OP_ARITH_ASSIGN Expr SEMI_COLON
+   23      | Location . OP_EQUAL Expr SEMI_COLON
+
+    OP_EQUAL         shift, and go to state 79
+    OP_ARITH_ASSIGN  shift, and go to state 80
+
+
+state 56
+
+   24 Stmnt: MethodCall . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 81
+
+
+state 57
+
+   35 Location: IDENTIFIER OPEN_SQR_BRACKET . Expr CLOSED_SQR_BRACKET
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 82
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 58
+
+   56 MethodCall: IDENTIFIER OPEN_PARANTHESIS . ExprListThingy CLOSED_PARANTHESIS
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    $default  reduce using rule 52 (ExprListThingy)
+
+    Location        go to state 71
+    Expr            go to state 83
+    ExprBinary      go to state 73
+    ExprSimple      go to state 74
+    OpUnary         go to state 75
+    Constant        go to state 76
+    ExprListThingy  go to state 84
+    ExprList        go to state 85
+    MethodCall      go to state 77
+
+
+state 59
+
+   25 Stmnt: IF OPEN_PARANTHESIS . Expr CLOSED_PARANTHESIS Block
+   26      | IF OPEN_PARANTHESIS . Expr CLOSED_PARANTHESIS Block ELSE Block
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 86
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 60
+
+   27 Stmnt: FOR IDENTIFIER . OP_EQUAL Expr COMMA Expr Block
+
+    OP_EQUAL  shift, and go to state 87
+
+
+state 61
+
+   28 Stmnt: BREAK SEMI_COLON .
+
+    $default  reduce using rule 28 (Stmnt)
+
+
+state 62
+
+   29 Stmnt: CONTINUE SEMI_COLON .
+
+    $default  reduce using rule 29 (Stmnt)
+
+
+state 63
+
+   49 Constant: CONSTANT_INTEGER .
+
+    $default  reduce using rule 49 (Constant)
+
+
+state 64
+
+   51 Constant: CONSTANT_CHARACTER .
+
+    $default  reduce using rule 51 (Constant)
+
+
+state 65
+
+   48 Constant: CONSTANT_STRING .
+
+    $default  reduce using rule 48 (Constant)
+
+
+state 66
+
+   50 Constant: CONSTANT_BOOLEAN .
+
+    $default  reduce using rule 50 (Constant)
+
+
+state 67
+
+   43 ExprSimple: OPEN_PARANTHESIS . Expr CLOSED_PARANTHESIS
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 88
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 68
+
+   30 Stmnt: RETURN SEMI_COLON .
+
+    $default  reduce using rule 30 (Stmnt)
+
+
+state 69
+
+   47 OpUnary: OP_NOT .
+
+    $default  reduce using rule 47 (OpUnary)
+
+
+state 70
+
+   46 OpUnary: OP_MINUS .
+
+    $default  reduce using rule 46 (OpUnary)
+
+
+state 71
+
+   40 ExprSimple: Location .
+
+    $default  reduce using rule 40 (ExprSimple)
+
+
+state 72
+
+   31 Stmnt: RETURN Expr . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 89
+
+
+state 73
+
+   36 Expr: ExprBinary .
+   39 ExprBinary: ExprBinary . OpBinary ExprBinary
+
+    OP_BINARY  shift, and go to state 90
+    OP_MINUS   shift, and go to state 91
+
+    $default  reduce using rule 36 (Expr)
+
+    OpBinary  go to state 92
+
+
+state 74
+
+   38 ExprBinary: ExprSimple .
+
+    $default  reduce using rule 38 (ExprBinary)
+
+
+state 75
+
+   37 Expr: OpUnary . ExprBinary
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+
+    Location    go to state 71
+    ExprBinary  go to state 93
+    ExprSimple  go to state 74
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 76
+
+   42 ExprSimple: Constant .
+
+    $default  reduce using rule 42 (ExprSimple)
+
+
+state 77
+
+   41 ExprSimple: MethodCall .
+
+    $default  reduce using rule 41 (ExprSimple)
+
+
+state 78
+
+   57 MethodCall: CALLOUT OPEN_PARANTHESIS . CONSTANT_STRING COMMA ExprList CLOSED_PARANTHESIS
+
+    CONSTANT_STRING  shift, and go to state 94
+
+
+state 79
+
+   23 Stmnt: Location OP_EQUAL . Expr SEMI_COLON
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 95
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 80
+
+   22 Stmnt: Location OP_ARITH_ASSIGN . Expr SEMI_COLON
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 96
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 81
+
+   24 Stmnt: MethodCall SEMI_COLON .
+
+    $default  reduce using rule 24 (Stmnt)
+
+
+state 82
+
+   35 Location: IDENTIFIER OPEN_SQR_BRACKET Expr . CLOSED_SQR_BRACKET
+
+    CLOSED_SQR_BRACKET  shift, and go to state 97
+
+
+state 83
+
+   54 ExprList: Expr .
+   55         | Expr . COMMA ExprList
+
+    COMMA  shift, and go to state 98
+
+    $default  reduce using rule 54 (ExprList)
+
+
+state 84
+
+   56 MethodCall: IDENTIFIER OPEN_PARANTHESIS ExprListThingy . CLOSED_PARANTHESIS
+
+    CLOSED_PARANTHESIS  shift, and go to state 99
+
+
+state 85
+
+   53 ExprListThingy: ExprList .
+
+    $default  reduce using rule 53 (ExprListThingy)
+
+
+state 86
+
+   25 Stmnt: IF OPEN_PARANTHESIS Expr . CLOSED_PARANTHESIS Block
+   26      | IF OPEN_PARANTHESIS Expr . CLOSED_PARANTHESIS Block ELSE Block
+
+    CLOSED_PARANTHESIS  shift, and go to state 100
+
+
+state 87
+
+   27 Stmnt: FOR IDENTIFIER OP_EQUAL . Expr COMMA Expr Block
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 101
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 88
+
+   43 ExprSimple: OPEN_PARANTHESIS Expr . CLOSED_PARANTHESIS
+
+    CLOSED_PARANTHESIS  shift, and go to state 102
+
+
+state 89
+
+   31 Stmnt: RETURN Expr SEMI_COLON .
+
+    $default  reduce using rule 31 (Stmnt)
+
+
+state 90
+
+   45 OpBinary: OP_BINARY .
+
+    $default  reduce using rule 45 (OpBinary)
+
+
+state 91
+
+   44 OpBinary: OP_MINUS .
+
+    $default  reduce using rule 44 (OpBinary)
+
+
+state 92
+
+   39 ExprBinary: ExprBinary OpBinary . ExprBinary
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+
+    Location    go to state 71
+    ExprBinary  go to state 103
+    ExprSimple  go to state 74
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 93
+
+   37 Expr: OpUnary ExprBinary .
+   39 ExprBinary: ExprBinary . OpBinary ExprBinary
+
+    OP_BINARY  shift, and go to state 90
+    OP_MINUS   shift, and go to state 91
+
+    $default  reduce using rule 37 (Expr)
+
+    OpBinary  go to state 92
+
+
+state 94
+
+   57 MethodCall: CALLOUT OPEN_PARANTHESIS CONSTANT_STRING . COMMA ExprList CLOSED_PARANTHESIS
+
+    COMMA  shift, and go to state 104
+
+
+state 95
+
+   23 Stmnt: Location OP_EQUAL Expr . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 105
+
+
+state 96
+
+   22 Stmnt: Location OP_ARITH_ASSIGN Expr . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 106
+
+
+state 97
+
+   35 Location: IDENTIFIER OPEN_SQR_BRACKET Expr CLOSED_SQR_BRACKET .
+
+    $default  reduce using rule 35 (Location)
+
+
+state 98
+
+   55 ExprList: Expr COMMA . ExprList
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 83
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    ExprList    go to state 107
+    MethodCall  go to state 77
+
+
+state 99
+
+   56 MethodCall: IDENTIFIER OPEN_PARANTHESIS ExprListThingy CLOSED_PARANTHESIS .
+
+    $default  reduce using rule 56 (MethodCall)
+
+
+state 100
+
+   25 Stmnt: IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS . Block
+   26      | IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS . Block ELSE Block
+
+    OPEN_BRACE  shift, and go to state 37
+
+    Block  go to state 108
+
+
+state 101
+
+   27 Stmnt: FOR IDENTIFIER OP_EQUAL Expr . COMMA Expr Block
+
+    COMMA  shift, and go to state 109
+
+
+state 102
+
+   43 ExprSimple: OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS .
+
+    $default  reduce using rule 43 (ExprSimple)
+
+
+state 103
+
+   39 ExprBinary: ExprBinary . OpBinary ExprBinary
+   39           | ExprBinary OpBinary ExprBinary .
+
+    OP_BINARY  shift, and go to state 90
+    OP_MINUS   shift, and go to state 91
+
+    OP_BINARY  [reduce using rule 39 (ExprBinary)]
+    OP_MINUS   [reduce using rule 39 (ExprBinary)]
+    $default   reduce using rule 39 (ExprBinary)
+
+    OpBinary  go to state 92
+
+
+state 104
+
+   57 MethodCall: CALLOUT OPEN_PARANTHESIS CONSTANT_STRING COMMA . ExprList CLOSED_PARANTHESIS
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 83
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    ExprList    go to state 110
+    MethodCall  go to state 77
+
+
+state 105
+
+   23 Stmnt: Location OP_EQUAL Expr SEMI_COLON .
+
+    $default  reduce using rule 23 (Stmnt)
+
+
+state 106
+
+   22 Stmnt: Location OP_ARITH_ASSIGN Expr SEMI_COLON .
+
+    $default  reduce using rule 22 (Stmnt)
+
+
+state 107
+
+   55 ExprList: Expr COMMA ExprList .
+
+    $default  reduce using rule 55 (ExprList)
+
+
+state 108
+
+   25 Stmnt: IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block .
+   26      | IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block . ELSE Block
+
+    ELSE  shift, and go to state 111
+
+    $default  reduce using rule 25 (Stmnt)
+
+
+state 109
+
+   27 Stmnt: FOR IDENTIFIER OP_EQUAL Expr COMMA . Expr Block
+
+    CONSTANT_INTEGER    shift, and go to state 63
+    CONSTANT_CHARACTER  shift, and go to state 64
+    CONSTANT_STRING     shift, and go to state 65
+    CONSTANT_BOOLEAN    shift, and go to state 66
+    IDENTIFIER          shift, and go to state 43
+    OPEN_PARANTHESIS    shift, and go to state 67
+    CALLOUT             shift, and go to state 50
+    OP_NOT              shift, and go to state 69
+    OP_MINUS            shift, and go to state 70
+
+    Location    go to state 71
+    Expr        go to state 112
+    ExprBinary  go to state 73
+    ExprSimple  go to state 74
+    OpUnary     go to state 75
+    Constant    go to state 76
+    MethodCall  go to state 77
+
+
+state 110
+
+   57 MethodCall: CALLOUT OPEN_PARANTHESIS CONSTANT_STRING COMMA ExprList . CLOSED_PARANTHESIS
+
+    CLOSED_PARANTHESIS  shift, and go to state 113
+
+
+state 111
+
+   26 Stmnt: IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block ELSE . Block
+
+    OPEN_BRACE  shift, and go to state 37
+
+    Block  go to state 114
+
+
+state 112
+
+   27 Stmnt: FOR IDENTIFIER OP_EQUAL Expr COMMA Expr . Block
+
+    OPEN_BRACE  shift, and go to state 37
+
+    Block  go to state 115
+
+
+state 113
+
+   57 MethodCall: CALLOUT OPEN_PARANTHESIS CONSTANT_STRING COMMA ExprList CLOSED_PARANTHESIS .
+
+    $default  reduce using rule 57 (MethodCall)
+
+
+state 114
+
+   26 Stmnt: IF OPEN_PARANTHESIS Expr CLOSED_PARANTHESIS Block ELSE Block .
+
+    $default  reduce using rule 26 (Stmnt)
+
+
+state 115
+
+   27 Stmnt: FOR IDENTIFIER OP_EQUAL Expr COMMA Expr Block .
+
+    $default  reduce using rule 27 (Stmnt)
