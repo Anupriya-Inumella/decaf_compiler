@@ -1,0 +1,6 @@
+class Program {
+    int main() {
+        x = 7;
+        x[10] *= 11;
+    }
+}

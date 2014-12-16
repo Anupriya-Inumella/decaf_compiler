@@ -1,0 +1,9 @@
+//Assignment Operators
+class Program {
+    int a;
+    int main() {
+        a=4;
+        a += 3;
+        return a;
+    }
+}

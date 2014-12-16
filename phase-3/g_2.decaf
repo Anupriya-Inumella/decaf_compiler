@@ -1,0 +1,9 @@
+class Program {
+    //method decl and global variables and local variables and return and constants
+    int a;
+    boolean bleh[20];
+    int main() {
+        int a[10];
+        return -1;
+    }
+}

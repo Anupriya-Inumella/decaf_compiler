@@ -1,0 +1,6 @@
+class Program {
+    int main(int argc) {
+    }
+    void blah(int mommy, boolean daddy) {
+    }
+}

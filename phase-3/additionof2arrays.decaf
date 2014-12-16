@@ -1,0 +1,15 @@
+// Addition of 2 Arrays
+class Program {
+    void addition(){
+    int i;
+        int sum[5];
+        int a[5];
+        int b[5];
+        for i=0 , i<4 {
+            a[i]=1;
+            b[i]=2;
+            sum[i] = a[i]+b[i];
+        }
+        return;
+    }
+}

@@ -1,0 +1,9 @@
+class Program {
+    //not operator and unary minus operator
+    boolean main() {
+        return !false;
+    }
+    int func() {
+        return -(4*2);
+    }
+}

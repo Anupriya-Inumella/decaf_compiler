@@ -1,0 +1,17 @@
+// Finding max elem in an Array
+class Program {
+        int a[10];
+        int min_func() {
+                int min;
+                int i;
+                min = 9898989; 
+                for i=0, i<10 {
+                        if(a[i] < min){
+                                min = a[i];
+                        }
+                }
+
+                return min;
+        }
+
+}

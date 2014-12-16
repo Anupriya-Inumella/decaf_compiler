@@ -1,0 +1,15 @@
+//if and phi
+class Program {
+    int main() {
+        int b;
+        int a;
+        if(true) {
+            b = b+1;
+            a=5;
+        } else {
+            b=b+2;
+            a=7;
+        }
+        b=a+1;
+    }
+}

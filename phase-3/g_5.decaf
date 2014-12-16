@@ -1,0 +1,10 @@
+//variable access
+class Program {
+        boolean a[10];
+    int func() {
+        a[0]=true;
+        int b[10];
+        b[0]=5;
+        return b[0];
+    }
+}

@@ -1,0 +1,6 @@
+class Program {
+    //Return type
+    int main() {
+        return true;
+    }
+}

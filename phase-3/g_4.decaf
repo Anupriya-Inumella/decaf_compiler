@@ -1,0 +1,42 @@
+class Program {
+    //binary operations
+    int func1() {
+        return 1+2;
+    }
+    int func2() {
+        return 1-2;
+    }
+    int func3() {
+        return -(2*3);
+    }
+    int func4() {
+        return 2/3;
+    }
+    int func5() {
+        return 2%3;
+    }
+    boolean func6() {
+        return 2<3;
+    }
+    boolean func7() {
+        return 2<=2;
+    }
+    boolean func8() {
+        return 2>=2;
+    }
+    boolean func9() {
+        return 3>2;
+    }
+    boolean func10() {
+        return true&&true;
+    }
+    boolean func11() {
+        return false||true;
+    }
+    boolean func12() {
+        return 3!=2;
+    }
+    boolean func13() {
+        return 2==2;
+    }
+}

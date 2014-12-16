@@ -1,0 +1,13 @@
+//Scoping
+class Program {
+    int a;
+    int main() {
+        int a;
+        a = 4;
+        return a;
+    }
+    int func() {
+        a = 5;
+        return a;
+    }
+}

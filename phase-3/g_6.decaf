@@ -1,0 +1,10 @@
+//Method calls
+class Program {
+    int func(int a, boolean b) {
+        return a;
+    }
+    int main() {
+        func(2, true);
+        return 0;
+    }
+}

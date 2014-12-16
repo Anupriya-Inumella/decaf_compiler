@@ -1,0 +1,22 @@
+// Bubble Sort
+
+class Program {
+	    int a[10];
+	void main(){
+		int i,j;
+		for i=0, i<10 {
+			for j=0, j<10-i-1 {
+				int t;
+                t=j+1;
+                if(a[j] > a[t]){
+					int temp;
+					temp = a[i];
+					a[i] = a[j];
+					a[j] = temp;
+				}
+			}
+		}
+		
+	}	
+
+}
